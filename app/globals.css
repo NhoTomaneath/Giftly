@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Local font to avoid CORS issues */
+@font-face {
+  font-family: 'Siemreap';
+  src: url('/fonts/Siemreap-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --gold: #fbbf24;
   --midnight: #0c4a6e;
