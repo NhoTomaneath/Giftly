@@ -2,9 +2,11 @@
 
 A simple New Year gift card generator built with Next.js.
 
+🔗 **Live Demo:** [https://giftly-lovat.vercel.app/gift-card](https://giftly-lovat.vercel.app/gift-card)
+
 ## Features
 
--  Create personalized gift cards with festive stickers
+-  Create personalized gift cards with stickers
 -  Add custom recipient name and message
 -  Real-time card preview
 -  Export as PNG image
@@ -17,40 +19,3 @@ A simple New Year gift card generator built with Next.js.
 - MongoDB Atlas
 - TypeScript
 
-## Getting Started
-
-### 1. Install dependencies
-
-```bash
-npm install
-```
-
-### 2. Set up environment variables
-
-Create `.env.local`:
-
-```env
-MONGODB_URI=your_mongodb_connection_string
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-```
-
-### 3. Run the app
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000)
-
-## Deploy
-
-Deploy easily on [Vercel](https://vercel.com):
-
-1. Push to GitHub
-2. Import project on Vercel
-3. Add `MONGODB_URI` environment variable
-4. Deploy
-
-## License
-
-MIT
