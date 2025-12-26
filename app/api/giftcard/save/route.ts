@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase } from '@/lib/mongodb';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
-import { existsSync } from 'fs';
 
 export async function POST(request: NextRequest) {
   try {
-    const { imageData, recipientName, message, stickerType } = await request.json();
+    const { imageData, recipientName, senderName, message, stickerType } = await request.json();
 
     if (!imageData) {
       return NextResponse.json(
@@ -15,38 +12,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const base64Data = imageData.replace(/^data:image\/\w+;base64,/, '');
-    const buffer = Buffer.from(base64Data, 'base64');
-
-    const uploadsDir = join(process.cwd(), 'public', 'giftcards');
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true });
+    // Store metadata in MongoDB (optional - for analytics)
+    try {
+      const db = await getDatabase();
+      await db.collection('giftcards').insertOne({
+        recipientName,
+        senderName,
+        message,
+        stickerType,
+        createdAt: new Date(),
+      });
+    } catch (dbError) {
+      // Continue even if DB fails - card generation should still work
+      console.error('DB save error (non-critical):', dbError);
     }
 
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    const filename = `giftcard-${uniqueSuffix}.png`;
-    const filepath = join(uploadsDir, filename);
-
-    await writeFile(filepath, buffer);
-
-    const imageUrl = `/giftcards/${filename}`;
-    const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}${imageUrl}`;
-
-    const db = await getDatabase();
-    const result = await db.collection('giftcards').insertOne({
-      imageUrl,
-      recipientName,
-      message,
-      stickerType,
-      shareUrl,
-      createdAt: new Date(),
-    });
-
+    // Return the image data URL directly - no filesystem needed
     return NextResponse.json({
       success: true,
-      imageUrl,
-      shareUrl,
-      id: result.insertedId,
+      imageUrl: imageData, // Return the base64 data URL directly
     });
   } catch (error) {
     console.error('Save error:', error);
@@ -56,22 +40,4 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-
-export async function GET() {
-  try {
-    const db = await getDatabase();
-    const cards = await db
-      .collection('giftcards')
-      .find({})
-      .sort({ createdAt: -1 })
-      .toArray();
-
-    return NextResponse.json(cards);
-  } catch (error) {
-    console.error('Fetch error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch gift cards' },
-      { status: 500 }
-    );
-  }
 }
