@@ -42,11 +42,28 @@ export default function GiftCardGenerator() {
 
     try {
       setIsSaving(true);
+
+      // Suppress console errors temporarily to avoid CORS warnings from html-to-image
+      const originalError = console.error;
+      console.error = (...args: any[]) => {
+        // Filter out cssRules CORS errors which are non-critical
+        if (args[0]?.toString().includes('cssRules') || args[0]?.toString().includes('SecurityError')) {
+          return;
+        }
+        originalError.apply(console, args);
+      };
+
       const dataUrl = await toPng(cardRef.current, {
         quality: 1,
         pixelRatio: 2,
         backgroundColor: '#0c4a6e',
+        skipFonts: false,
+        includeQueryParams: true,
+        cacheBust: true,
       });
+
+      // Restore original console.error
+      console.error = originalError;
 
       const response = await fetch('/api/giftcard/save', {
         method: 'POST',
