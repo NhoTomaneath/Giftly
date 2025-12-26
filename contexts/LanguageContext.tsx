@@ -47,10 +47,12 @@ const translations = {
     uploadPhoto: 'Upload your photo',
     clickToUploadPhoto: 'Click to upload a photo',
     removePhoto: 'Remove Photo',
+    imageFormatNote: 'Supported formats: JPG, PNG, GIF • Max size: 5MB',
 
     // Border Customization
     cardStyling: 'Card Styling',
     borderStyle: 'Border Style:',
+    borderColor: 'Border Color:',
     borderNone: 'None',
     borderSolid: 'Solid',
     borderDashed: 'Dashed',
@@ -81,12 +83,19 @@ const translations = {
     senderPlaceholder: 'Your name',
     yourMessage: 'Your Message:',
     messagePlaceholder: 'Write your heartfelt message here...',
-    messageTemplates: 'Quick Templates:',
+    messageTemplates: 'Quick Message Themes:',
+
+    // Message Theme Names
+    joyAndSuccess: 'Joy & Success',
+    happinessAndProsperity: 'Happiness & Prosperity',
+    newBeginnings: 'New Beginnings',
+    healthAndWealth: 'Health & Wealth',
+    dreamBig: 'Dream Big',
 
     // Actions
-    generateCard: '✨ Generate Card',
+    generateCard: 'Generate Card',
     generating: 'Generating...',
-    newCard: '🔄 New Card',
+    newCard: 'New Card',
 
     // Success Section
     cardReady: '🎉 Your Card is Ready!',
@@ -150,10 +159,12 @@ const translations = {
     uploadPhoto: 'ផ្ទុករូបភាពរបស់អ្នក',
     clickToUploadPhoto: 'ចុចដើម្បីផ្ទុករូបភាព',
     removePhoto: 'លុបរូបភាព',
+    imageFormatNote: 'ទ្រង់ទ្រាយគាំទ្រ៖ JPG, PNG, GIF • ទំហំអតិបរមា៖ 5MB',
 
     // Border Customization
     cardStyling: 'រចនាប័ទ្មកាត',
     borderStyle: 'រចនាប័ទ្មគែម:',
+    borderColor: 'ពណ៌គែម:',
     borderNone: 'គ្មាន',
     borderSolid: 'រឹង',
     borderDashed: 'ចុច',
@@ -184,12 +195,19 @@ const translations = {
     senderPlaceholder: 'ឈ្មោះរបស់អ្នក',
     yourMessage: 'សាររបស់អ្នក:',
     messagePlaceholder: 'សរសេរសាររបស់អ្នកនៅទីនេះ...',
-    messageTemplates: 'គំរូរហ័ស:',
+    messageTemplates: 'ប្រធានបទសាររហ័ស:',
+
+    // Message Theme Names
+    joyAndSuccess: 'សេចក្តីរីករាយ និងជោគជ័យ',
+    happinessAndProsperity: 'សុភមង្គល និងភាពរុងរឿង',
+    newBeginnings: 'ការចាប់ផ្តើមថ្មី',
+    healthAndWealth: 'សុខភាព និងសម្បត្តិ',
+    dreamBig: 'សុបិនធំ',
 
     // Actions
-    generateCard: '✨ បង្កើតកាត',
+    generateCard: 'បង្កើតកាត',
     generating: 'កំពុងបង្កើត...',
-    newCard: '🔄 កាតថ្មី',
+    newCard: 'កាតថ្មី',
 
     // Success Section
     cardReady: '🎉 កាតរបស់អ្នករួចរាល់ហើយ!',

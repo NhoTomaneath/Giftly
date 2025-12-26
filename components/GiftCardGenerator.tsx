@@ -25,9 +25,9 @@ export default function GiftCardGenerator() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [customBackground, setCustomBackground] = useState<string | null>(null);
   const [useCustomBg, setUseCustomBg] = useState(false);
-  const [borderStyle, setBorderStyle] = useState<'none' | 'solid' | 'dashed' | 'dotted' | 'double' | 'decorative'>('none');
-  const [borderEmoji, setBorderEmoji] = useState('✨');
-  const [cornerIcon, setCornerIcon] = useState('✨');
+  const [borderStyle, setBorderStyle] = useState<'none' | 'solid' | 'double'>('none');
+  const [borderColor, setBorderColor] = useState('#fbbf24');
+  const [cornerIcon, setCornerIcon] = useState('none');
   const [headingText, setHeadingText] = useState('Happy New Year 2025!');
   const [footerText, setFooterText] = useState('🎉 Happy New Year 2025 🎉');
   const [textColor, setTextColor] = useState('#ffffff');
@@ -92,24 +92,6 @@ export default function GiftCardGenerator() {
     window.open(messengerUrl, '_blank');
   };
 
-  const shareToWhatsApp = () => {
-    if (!generatedUrl) return;
-    const url = `${window.location.origin}${generatedUrl}`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`Happy New Year 2025! 🎉 ${url}`)}`;
-    window.open(whatsappUrl, '_blank');
-  };
-
-  const copyLink = async () => {
-    if (!generatedUrl) return;
-    const url = `${window.location.origin}${generatedUrl}`;
-    try {
-      await navigator.clipboard.writeText(url);
-      alert('Link copied to clipboard!');
-    } catch {
-      alert('Failed to copy link');
-    }
-  };
-
   const downloadCard = () => {
     if (!generatedUrl) return;
     const link = document.createElement('a');
@@ -127,8 +109,8 @@ export default function GiftCardGenerator() {
     setCustomBackground(null);
     setUseCustomBg(false);
     setBorderStyle('none');
-    setBorderEmoji('✨');
-    setCornerIcon('✨');
+    setBorderColor('#fbbf24');
+    setCornerIcon('none');
     setHeadingText('Happy New Year 2025!');
     setFooterText('🎉 Happy New Year 2025 🎉');
     setTextColor('#ffffff');
@@ -180,11 +162,9 @@ export default function GiftCardGenerator() {
 
   const getBorderClass = () => {
     if (borderStyle === 'none') return '';
-    if (borderStyle === 'solid') return 'border-4 border-white';
-    if (borderStyle === 'dashed') return 'border-4 border-dashed border-white';
-    if (borderStyle === 'dotted') return 'border-4 border-dotted border-white';
-    if (borderStyle === 'double') return 'border-8 border-double border-white';
-    return ''; // decorative will be handled separately
+    if (borderStyle === 'solid') return 'border-4';
+    if (borderStyle === 'double') return 'border-8 border-double';
+    return '';
   };
 
   const getFontSizeClass = () => {
@@ -193,34 +173,6 @@ export default function GiftCardGenerator() {
     return 'text-3xl md:text-4xl'; // medium
   };
 
-  const decorativeBorderEmojis = borderStyle === 'decorative' ? (
-    <>
-      {/* Top border */}
-      <div className="absolute top-2 left-0 right-0 flex justify-around z-10 pointer-events-none">
-        {[...Array(8)].map((_, i) => (
-          <span key={`top-${i}`} className="text-2xl opacity-80">{borderEmoji}</span>
-        ))}
-      </div>
-      {/* Bottom border */}
-      <div className="absolute bottom-2 left-0 right-0 flex justify-around z-10 pointer-events-none">
-        {[...Array(8)].map((_, i) => (
-          <span key={`bottom-${i}`} className="text-2xl opacity-80">{borderEmoji}</span>
-        ))}
-      </div>
-      {/* Left border */}
-      <div className="absolute left-2 top-0 bottom-0 flex flex-col justify-around z-10 pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <span key={`left-${i}`} className="text-2xl opacity-80">{borderEmoji}</span>
-        ))}
-      </div>
-      {/* Right border */}
-      <div className="absolute right-2 top-0 bottom-0 flex flex-col justify-around z-10 pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <span key={`right-${i}`} className="text-2xl opacity-80">{borderEmoji}</span>
-        ))}
-      </div>
-    </>
-  ) : null;
 
   return (
     <div className="grid lg:grid-cols-2 gap-8">
@@ -282,13 +234,16 @@ export default function GiftCardGenerator() {
               id="bg-upload"
             />
             {!useCustomBg ? (
-              <label
-                htmlFor="bg-upload"
-                className="w-full bg-midnight-900/50 border-2 border-dashed border-gold-500/40 rounded-lg p-4 text-center cursor-pointer hover:border-gold-400 hover:bg-midnight-900/70 transition-all flex flex-col items-center gap-2"
-              >
-                <span className="text-2xl">🖼️</span>
-                <span className="text-gold-300 text-sm">{t('clickToUpload')}</span>
-              </label>
+              <>
+                <label
+                  htmlFor="bg-upload"
+                  className="w-full bg-midnight-900/50 border-2 border-dashed border-gold-500/40 rounded-lg p-4 text-center cursor-pointer hover:border-gold-400 hover:bg-midnight-900/70 transition-all flex flex-col items-center gap-2"
+                >
+                  <span className="text-2xl">🖼️</span>
+                  <span className="text-gold-300 text-sm">{t('clickToUpload')}</span>
+                </label>
+                <p className="text-gold-400/60 text-xs mt-2">{t('imageFormatNote')}</p>
+              </>
             ) : (
               <div className="relative">
                 <div
@@ -311,7 +266,7 @@ export default function GiftCardGenerator() {
           {/* Photo Upload */}
           <div className="mt-4 pt-4 border-t border-gold-500/20">
             <label className="block text-gold-300 mb-2 font-medium text-sm">
-              📸 {t('addPhoto')}
+              {t('addPhoto')}
             </label>
             <input
               ref={photoInputRef}
@@ -322,13 +277,16 @@ export default function GiftCardGenerator() {
               id="photo-upload"
             />
             {!photoImage ? (
-              <label
-                htmlFor="photo-upload"
-                className="w-full bg-midnight-900/50 border-2 border-dashed border-gold-500/40 rounded-lg p-4 text-center cursor-pointer hover:border-gold-400 hover:bg-midnight-900/70 transition-all flex flex-col items-center gap-2"
-              >
-                <span className="text-2xl">📷</span>
-                <span className="text-gold-300 text-sm">{t('clickToUploadPhoto')}</span>
-              </label>
+              <>
+                <label
+                  htmlFor="photo-upload"
+                  className="w-full bg-midnight-900/50 border-2 border-dashed border-gold-500/40 rounded-lg p-4 text-center cursor-pointer hover:border-gold-400 hover:bg-midnight-900/70 transition-all flex flex-col items-center gap-2"
+                >
+                  <span className="text-2xl">📷</span>
+                  <span className="text-gold-300 text-sm">{t('clickToUploadPhoto')}</span>
+                </label>
+                <p className="text-gold-400/60 text-xs mt-2">{t('imageFormatNote')}</p>
+              </>
             ) : (
               <div className="relative">
                 <div
@@ -428,15 +386,25 @@ export default function GiftCardGenerator() {
                 {t('messageTemplates')}
               </label>
               <div className="flex flex-wrap gap-2">
-                {MESSAGE_TEMPLATES.map((template, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setMessage(template)}
-                    className="text-xs px-3 py-1 rounded-full bg-midnight-900/50 border border-gold-500/20 text-gold-300 hover:border-gold-400 hover:text-gold-200 transition-colors"
-                  >
-                    Template {index + 1}
-                  </button>
-                ))}
+                {MESSAGE_TEMPLATES.map((template, index) => {
+                  const themeNames = [
+                    t('joyAndSuccess'),
+                    t('happinessAndProsperity'),
+                    t('newBeginnings'),
+                    t('healthAndWealth'),
+                    t('dreamBig')
+                  ];
+                  return (
+                    <button
+                      type="button"
+                      key={index}
+                      onClick={() => setMessage(template)}
+                      className="text-xs px-3 py-1 rounded-full bg-midnight-900/50 border border-gold-500/20 text-gold-300 hover:border-gold-400 hover:text-gold-200 transition-colors"
+                    >
+                      {themeNames[index]}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -462,12 +430,9 @@ export default function GiftCardGenerator() {
               </label>
               <div className="grid grid-cols-3 gap-2">
                 {[
-                  { value: 'none', label: t('borderNone'), icon: '⬜' },
-                  { value: 'solid', label: t('borderSolid'), icon: '▪️' },
-                  { value: 'dashed', label: t('borderDashed'), icon: '⚊' },
-                  { value: 'dotted', label: t('borderDotted'), icon: '⚬' },
-                  { value: 'double', label: t('borderDouble'), icon: '▬' },
-                  { value: 'decorative', label: t('borderDecorative'), icon: '✨' },
+                  { value: 'none', label: t('borderNone') },
+                  { value: 'solid', label: t('borderSolid') },
+                  { value: 'double', label: t('borderDouble') },
                 ].map((style) => (
                   <button
                     key={style.value}
@@ -479,34 +444,41 @@ export default function GiftCardGenerator() {
                         : 'bg-midnight-900/50 text-gold-300 hover:bg-midnight-900/70'
                     }`}
                   >
-                    <span className="mr-1">{style.icon}</span>
                     {style.label}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Decorative Border Emoji Selection */}
-            {borderStyle === 'decorative' && (
+            {/* Border Color */}
+            {borderStyle !== 'none' && (
               <div>
-                <label className="block text-gold-300 mb-2 font-medium text-sm">
-                  {t('borderEmoji')}
+                <label htmlFor="border-color-picker" className="block text-gold-300 mb-2 font-medium">
+                  {t('borderColor')}
                 </label>
-                <div className="flex flex-wrap gap-2">
-                  {['✨', '⭐', '🎉', '🎊', '💫', '🌟', '❄️', '🎆', '💖', '🔥'].map((emoji) => (
-                    <button
-                      key={emoji}
-                      type="button"
-                      onClick={() => setBorderEmoji(emoji)}
-                      className={`w-10 h-10 rounded-lg text-xl transition-all ${
-                        borderEmoji === emoji
-                          ? 'bg-gold-500 scale-110 ring-2 ring-gold-400'
-                          : 'bg-midnight-900/50 hover:bg-midnight-900/70 hover:scale-105'
-                      }`}
-                    >
-                      {emoji}
-                    </button>
-                  ))}
+                <div className="flex gap-2 items-center">
+                  <input
+                    id="border-color-picker"
+                    type="color"
+                    value={borderColor}
+                    onChange={(e) => setBorderColor(e.target.value)}
+                    className="w-12 h-10 rounded-lg cursor-pointer bg-midnight-900/50 border border-gold-500/30"
+                    title="Pick a custom border color"
+                  />
+                  <div className="flex-1 grid grid-cols-5 gap-2">
+                    {['#ffffff', '#fbbf24', '#FF69B4', '#87CEEB', '#98FB98'].map((color) => (
+                      <button
+                        key={color}
+                        type="button"
+                        onClick={() => setBorderColor(color)}
+                        className={`h-8 rounded-lg border-2 transition-all ${
+                          borderColor === color ? 'border-gold-400 scale-110' : 'border-transparent'
+                        }`}
+                        style={{ backgroundColor: color }}
+                        title={color}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
@@ -573,13 +545,12 @@ export default function GiftCardGenerator() {
             </div>
 
             {/* Corner Decorative Icon */}
-            {borderStyle !== 'decorative' && (
-              <div>
+            <div>
                 <label className="block text-gold-300 mb-2 font-medium">
                   {t('cornerDecoration')}
                 </label>
                 <div className="flex flex-wrap gap-2">
-                  {['✨', '⭐', '💫', '🌟', '❄️', '🎆', '🎉', '🎊', '💖', '🔥', '🌸', '🦋'].map((icon) => (
+                  {['none', '✨', '⭐', '💫', '🌟', '❄️', '🎆', '🎉', '🎊', '💖', '🔥', '🌸', '🦋'].map((icon) => (
                     <button
                       key={icon}
                       type="button"
@@ -589,9 +560,9 @@ export default function GiftCardGenerator() {
                           ? 'bg-gold-500 scale-110 ring-2 ring-gold-400'
                           : 'bg-midnight-900/50 hover:bg-midnight-900/70 hover:scale-105'
                       }`}
-                      title={`Use ${icon} as corner decoration`}
+                      title={icon === 'none' ? 'No corner decoration' : `Use ${icon} as corner decoration`}
                     >
-                      {icon}
+                      {icon === 'none' ? '🚫' : icon}
                     </button>
                   ))}
                 </div>
@@ -599,7 +570,6 @@ export default function GiftCardGenerator() {
                   {t('cornerIconDesc')}
                 </p>
               </div>
-            )}
           </div>
         </div>
 
@@ -612,25 +582,13 @@ export default function GiftCardGenerator() {
                 onClick={shareToTelegram}
                 className="bg-[#0088cc] text-white py-3 rounded-lg font-semibold hover:bg-[#0077b5] transition-colors flex items-center justify-center gap-2"
               >
-                <span>📱</span> {t('shareTelegram')}
+                {t('shareTelegram')}
               </button>
               <button
                 onClick={shareToMessenger}
                 className="bg-[#0084ff] text-white py-3 rounded-lg font-semibold hover:bg-[#0073e6] transition-colors flex items-center justify-center gap-2"
               >
-                <span>💬</span> {t('shareMessenger')}
-              </button>
-              <button
-                onClick={shareToWhatsApp}
-                className="bg-[#25D366] text-white py-3 rounded-lg font-semibold hover:bg-[#20bd5a] transition-colors flex items-center justify-center gap-2"
-              >
-                <span>📲</span> {t('shareWhatsApp')}
-              </button>
-              <button
-                onClick={copyLink}
-                className="bg-gray-600 text-white py-3 rounded-lg font-semibold hover:bg-gray-500 transition-colors flex items-center justify-center gap-2"
-              >
-                <span>🔗</span> {t('copyLink')}
+                {t('shareMessenger')}
               </button>
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -638,7 +596,7 @@ export default function GiftCardGenerator() {
                 onClick={downloadCard}
                 className="bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-500 transition-colors flex items-center justify-center gap-2"
               >
-                <span>⬇️</span> {t('downloadCard')}
+                {t('downloadCard')}
               </button>
               <button
                 onClick={resetCard}
@@ -661,7 +619,8 @@ export default function GiftCardGenerator() {
             style={{
               background: useCustomBg && customBackground
                 ? `url(${customBackground}) center/cover`
-                : selectedSticker.background
+                : selectedSticker.background,
+              borderColor: borderStyle !== 'none' ? borderColor : undefined
             }}
           >
             {/* Semi-transparent overlay for better text readability on custom backgrounds */}
@@ -669,11 +628,8 @@ export default function GiftCardGenerator() {
               <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]" />
             )}
 
-            {/* Decorative Border Emojis */}
-            {decorativeBorderEmojis}
-
-            {/* Corner Decorative elements (only show if not using decorative border) */}
-            {borderStyle !== 'decorative' && (
+            {/* Corner Decorative elements */}
+            {cornerIcon !== 'none' && (
               <>
                 <div className="absolute top-4 left-4 text-4xl opacity-30 z-10">{cornerIcon}</div>
                 <div className="absolute top-4 right-4 text-4xl opacity-30 z-10">{cornerIcon}</div>
