@@ -22,7 +22,7 @@ const translations = {
     startCreating: 'Start Creating Now',
     whyChoose: 'Why Choose Our Gift Cards?',
     beautifulThemes: 'Beautiful Themes',
-    beautifulThemesDesc: 'Choose from 8 stunning gradient backgrounds with festive stickers',
+    beautifulThemesDesc: 'Choose from varierty of theme backgrounds with decorative stickers',
     personalMessages: 'Personal Messages',
     personalMessagesDesc: 'Add heartfelt wishes and personalize for each recipient',
     easySharing: 'Easy Sharing',
@@ -41,7 +41,7 @@ const translations = {
     removeCustomBg: 'Remove Custom Background',
     orUploadOwn: 'Or upload your own background:',
     clickToUpload: 'Click to upload custom background',
-    livePreview: 'Live Preview',
+    livePreview: 'Preview',
     fillDetails: 'Fill in the details to see your card come to life!',
     addPhoto: 'Add a Photo',
     uploadPhoto: 'Upload your photo',
@@ -129,23 +129,23 @@ const translations = {
     backToHome: 'ត្រឡប់ទៅទំព័រដើម',
 
     // Home Page
-    homeTitle: 'បង្កើតកាតអំណោយឆ្នាំថ្មីស្រស់ស្អាត',
-    homeDescription: 'រចនាកាតអំណោយផ្ទាល់ខ្លួនជាមួយនឹងប្រធានបទបុណ្យ សារផ្ទាល់ខ្លួន និងចែករំលែកជាមួយមនុស្សជាទីស្រឡាញ់របស់អ្នក',
+    homeTitle: 'បង្កើត Gift Card ឆ្នាំថ្មីដ៏ស្រស់ស្អាត',
+    homeDescription: 'រចនា Gift Card ផ្ទាល់ខ្លួនជាមួយនិងប្រធានបទបុណ្យទានប្រពៃណី  ការបង្កើតសារពិសេសផ្ទាល់ខ្លួន និងចែករំលែកទៅកាន់មនុស្សជាទីស្រឡាញ់របស់អ្នក',
     startCreating: 'ចាប់ផ្តើមបង្កើតឥឡូវនេះ',
-    whyChoose: 'ហេតុអ្វីជ្រើសរើសកាតអំណោយរបស់យើង?',
-    beautifulThemes: 'ប្រធានបទស្រស់ស្អាត',
-    beautifulThemesDesc: 'ជ្រើសរើសពីផ្ទៃខាងក្រោយជម្រាល 8 ស្រស់ស្អាតជាមួយនឹងស្ទីគឃ័របុណ្យ',
+    whyChoose: 'ហេតុអ្វីជ្រើសរើស Gift Card របស់យើង?',
+    beautifulThemes: 'ប្រភេទកាតស្រស់ស្អាត',
+    beautifulThemesDesc: 'មានជម្រើសកាតច្រើនប្រភេទជាមួយនឹងផ្ទៃខាងក្រោយ និងស្ទីគឃ័រតុបតែង',
     personalMessages: 'សារផ្ទាល់ខ្លួន',
     personalMessagesDesc: 'បន្ថែមការជូនពរពីបេះដូង និងកែសម្រួលសម្រាប់អ្នកទទួលនីមួយៗ',
-    easySharing: 'ចែករំលែកយ៉ាងងាយស្រួល',
-    easySharingDesc: 'ចែករំលែកតាមរយៈ Telegram, Messenger ឬទាញយកដោយផ្ទាល់',
+    easySharing: 'ងាយស្រួលក្នុងការចែករំលែក',
+    easySharingDesc: 'ចែករំលែកបានតាមរយៈ Telegram, Messenger ឬទាញយកដោយផ្ទាល់',
 
     // Gift Card Page
-    giftCardTitle: 'កម្មវិធីបង្កើតកាតអំណោយ',
-    giftCardDescription: 'បង្កើតកាតអំណោយឆ្នាំថ្មីដែលមានការរចនាស្រស់ស្អាត និងសាររបស់អ្នក។',
+    giftCardTitle: 'កម្មវិធីបង្កើត Gift Card',
+    giftCardDescription: 'បង្កើត Gift Card ឆ្នាំថ្មីដែលមានការរចនាដ៏ស្រស់ស្អាត និងសាររបស់អ្នក',
 
     // Stickers Section
-    chooseTheme: 'ជ្រើសរើសប្រធានបទ',
+    chooseTheme: 'ជ្រើសរើសប្រភេទកាត',
     chooseBackground: 'ជ្រើសរើសផ្ទៃខាងក្រោយរបស់អ្នក:',
     presetStickers: 'ស្ទីគឃ័រដែលបានកំណត់',
     customBackground: 'ផ្ទៃខាងក្រោយផ្ទាល់ខ្លួន',
@@ -162,16 +162,16 @@ const translations = {
     imageFormatNote: 'ទ្រង់ទ្រាយគាំទ្រ៖ JPG, PNG, GIF • ទំហំអតិបរមា៖ 5MB',
 
     // Border Customization
-    cardStyling: 'រចនាប័ទ្មកាត',
-    borderStyle: 'រចនាប័ទ្មគែម:',
+    cardStyling: 'រចនាបថកាត',
+    borderStyle: 'រចនាបថគែម:',
     borderColor: 'ពណ៌គែម:',
-    borderNone: 'គ្មាន',
-    borderSolid: 'រឹង',
+    borderNone: 'None',
+    borderSolid: 'Solid',
     borderDashed: 'ចុច',
     borderDotted: 'ចុចតូច',
-    borderDouble: 'ពីរជាន់',
+    borderDouble: 'Double',
     borderDecorative: 'តុបតែង',
-    borderEmoji: 'អ៊ីម៉ូជីគែម:',
+    borderEmoji: 'គែមអ៊ីម៉ូជី:',
 
     // Text & Icon Customization
     textColor: 'ពណ៌អក្សរ:',
@@ -184,8 +184,8 @@ const translations = {
     cornerIconDesc: 'ជ្រើសរើសរូបតំណាងដែលបង្ហាញនៅជ្រុងទាំងបួនរបស់កាតអ្នក',
 
     // Customize Card
-    customizeCard: 'កែសម្រួលកាតរបស់អ្នក',
-    mainHeading: 'ចំណងជើងមេ:',
+    customizeCard: 'កែលម្អកាតរបស់អ្នក',
+    mainHeading: 'ចំណងជើង:',
     mainHeadingPlaceholder: 'រីករាយឆ្នាំថ្មី 2025!',
     bottomTagline: 'ពាក្យស្លោកខាងក្រោម:',
     bottomTaglinePlaceholder: '🎉 រីករាយឆ្នាំថ្មី 2025 🎉',
@@ -195,7 +195,7 @@ const translations = {
     senderPlaceholder: 'ឈ្មោះរបស់អ្នក',
     yourMessage: 'សាររបស់អ្នក:',
     messagePlaceholder: 'សរសេរសាររបស់អ្នកនៅទីនេះ...',
-    messageTemplates: 'ប្រធានបទសាររហ័ស:',
+    messageTemplates: 'សាររហ័ស:',
 
     // Message Theme Names
     joyAndSuccess: 'សេចក្តីរីករាយ និងជោគជ័យ',
